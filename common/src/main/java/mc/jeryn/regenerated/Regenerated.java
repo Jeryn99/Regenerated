@@ -5,6 +5,7 @@ import mc.jeryn.regenerated.common.tab.ModCreativeModeTabs;
 import mc.jeryn.regenerated.common.item.RItems;
 import mc.jeryn.regenerated.common.sound.ModSoundEvents;
 import mc.jeryn.regenerated.config.ModConfiguration;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,5 +22,9 @@ public class Regenerated {
         ModBlocks.BLOCKS.register();
         RItems.ITEMS.register();
         ModSoundEvents.SOUND_EVENTS.register();
+    }
+
+    public static ResourceLocation resourceLocation(String path){
+        return ResourceLocation.tryBuild(MOD_ID, path);
     }
 }

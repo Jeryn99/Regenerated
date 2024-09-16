@@ -57,6 +57,11 @@ subprojects {
         }
 
         maven {
+            name = 'Ladysnake Mods'
+            url = 'https://maven.ladysnake.org/releases'
+        }
+
+        maven {
             url 'https://api.modrinth.com/maven'
             content { includeGroup 'maven.modrinth' }
         }

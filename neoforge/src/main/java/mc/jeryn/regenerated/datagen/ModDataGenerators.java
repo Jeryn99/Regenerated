@@ -27,17 +27,18 @@ public class ModDataGenerators {
 
         addVirtualPackContents(efh);
 
-        if (ev.includeServer()) {
-            gen.addProvider(ev.includeServer(), new ModLangProvider(packOutput));
-            gen.addProvider(ev.includeServer(), new ModItemModelProvider(packOutput, efh));
-            gen.addProvider(ev.includeServer(), new ModStateAndModelProvider(packOutput, efh));
-            gen.addProvider(ev.includeServer(), new ModBootstrapProvider(packOutput, provider));
+        if (ev.includeClient()) {
+            gen.addProvider(ev.includeClient(), new ModLangProvider(packOutput));
+            gen.addProvider(ev.includeClient(), new ModItemModelProvider(packOutput, efh));
+            gen.addProvider(ev.includeClient(), new ModStateAndModelProvider(packOutput, efh));
+            gen.addProvider(ev.includeClient(), new ModBootstrapProvider(packOutput, provider));
+            gen.addProvider(ev.includeClient(), new RSoundProvider(packOutput, efh));
         }
     }
 
     private static void addVirtualPackContents(ExistingFileHelper existingFileHelper) {
         existingFileHelper.trackGenerated(
-                ModResources.modLoc(RItems.TEMPLATE_ITEM.getId().getPath()), PackType.CLIENT_RESOURCES, PATH_SUFFIX, PATH_ITEM_PREFIX
+                ModResources.modLoc(RItems.INTERDIMENSIONAL_STORAGE.getId().getPath()), PackType.CLIENT_RESOURCES, PATH_SUFFIX, PATH_ITEM_PREFIX
         );
         existingFileHelper.trackGenerated(
                 ModResources.modLoc(ModBlocks.TEMPLATE_BLOCK.getId().getPath()), PackType.CLIENT_RESOURCES, PATH_SUFFIX, PATH_BLOCK_PREFIX

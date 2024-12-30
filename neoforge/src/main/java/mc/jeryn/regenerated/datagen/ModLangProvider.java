@@ -60,13 +60,7 @@ public class ModLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        addConfigOption("meow", "meow", "meow?");
-        addConfigSection("General Settings", "General Settings", "This category holds general values that most people will want to change.");
-        addBlock(ModBlocks.TEMPLATE_BLOCK, "Meowing Block");
-        addItem(RItems.TEMPLATE_ITEM, "Meowing Disc");
-        addJukeboxSong(ModResources.TEMPLATE_JUKEBOX_SONG, "Tanger - Scratch!");
 
-        addSound("fail", "no meow :<");
-        addSound("meow", "MEOW!!");
+
     }
 }

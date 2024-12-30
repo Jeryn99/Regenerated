@@ -27,11 +27,14 @@ public class Regenerated {
         ModSoundEvents.SOUND_EVENTS.register();
 
         SkinDownloader skinDownloader = new SkinDownloader();
-        try {
-            skinDownloader.downloadSkins();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Thread downloadThread = new Thread(() -> {
+            try {
+                skinDownloader.downloadSkins();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        downloadThread.start();
     }
 
     public static ResourceLocation resourceLocation(String path){

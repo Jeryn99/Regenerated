@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 public class ModSoundEvents {
     public static final DeferredRegistry<SoundEvent> SOUND_EVENTS = DeferredRegistry.create(Regenerated.MOD_ID, Registries.SOUND_EVENT);
 
-    public static final RegistrySupplierHolder<SoundEvent, SoundEvent> TEMPLATE_SOUND_EVENT = SOUND_EVENTS.registerForHolder(
-            "template_sound_event", () -> SoundEvent.createVariableRangeEvent(ModResources.TEMPLATE_SOUND));
+    public static final RegistrySupplierHolder<SoundEvent, SoundEvent> REGENERATION_RANDOM = SOUND_EVENTS.registerForHolder(
+            "regeneration_random", () -> SoundEvent.createVariableRangeEvent(ModResources.TEMPLATE_SOUND));
 
 }

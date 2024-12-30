@@ -7,9 +7,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Regenerated.MOD_ID)
-public class regeneratedNeoForge {
+public class RegeneratedNeoForge {
     public static IEventBus modEventBus;
-    public regeneratedNeoForge(IEventBus modEventBusParam) {
+    public RegeneratedNeoForge(IEventBus modEventBusParam) {
         modEventBus = modEventBusParam;
         IEventBus eventBus = NeoForge.EVENT_BUS;
 

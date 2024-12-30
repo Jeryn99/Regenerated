@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +58,22 @@ public class SkinDownloader {
         for (SkinDownload skin : skins) {
             String skinFolderName = SKIN_FOLDER + model + "/server/";
             File skinFolderFile = new File(skinFolderName);
-            skinFolderFile.mkdirs();
+
+            if (!skinFolderFile.exists()) {
+                skinFolderFile.mkdirs();
+            }
 
             String skinFilePath = skinFolderName + skin.getName() + ".png";
+            File skinFile = new File(skinFilePath);
+
+            if (!skinFile.exists()) {
+                skinFile.createNewFile();
+            }
+
             URL skinUrl = new URL(skin.getLink());
-            Path skinPath = Paths.get(skinFilePath);
-            Files.copy(skinUrl.openStream(), skinPath);
+            Path skinPath = skinFile.toPath();
+
+            Files.copy(skinUrl.openStream(), skinPath, StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Downloaded and saved skin: " + skin.getName());
         }
     }

@@ -4,7 +4,6 @@
   "package": "mc.jeryn.regenerated.mixin",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
-    "TitleScreenMixin"
   ],
   "client": [
     "PlayerInfoMixin"

@@ -14,7 +14,7 @@ public class ModCreativeModeTabs {
     public static final RegistrySupplier<CreativeModeTab> MAIN = TABS.register("main", () -> createTab("main"));
 
     public static ItemStack makeIcon() {
-        return new ItemStack(RItems.INTERDIMENSIONAL_STORAGE.get());
+        return new ItemStack(RItems.POCKET_WATCH.get());
     }
 
     @ExpectPlatform

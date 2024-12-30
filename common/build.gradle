@@ -1,3 +1,4 @@
+/*
 architectury {
     def platforms = rootProject
             .subprojects
@@ -8,6 +9,13 @@ architectury {
     println "Platforms: ${platforms.toListString()}"
     common(platforms)
 }
+*/
+
+
+architectury {
+    common("neoforge", "fabric")
+}
+
 
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies

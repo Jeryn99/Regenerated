@@ -1,0 +1,8 @@
+{
+  "comparator_output": 11,
+  "description": {
+    "translate": "jukebox_song.regenerated.template_jukebox_song"
+  },
+  "length_in_seconds": 156.0,
+  "sound_event": "regenerated:regeneration_random"
+}

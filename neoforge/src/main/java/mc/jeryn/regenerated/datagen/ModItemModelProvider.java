@@ -13,6 +13,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(RItems.TEMPLATE_ITEM.get());
+        basicItem(RItems.INTERDIMENSIONAL_STORAGE.get());
     }
 }

@@ -104,7 +104,6 @@ dependencies {
         include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_port_version}"
 
         modRuntimeOnly("maven.modrinth:sodium:${sodium_version}-fabric")
-        modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
         modRuntimeOnly("curse.maven:modernfix-${modern_fix_id}:${modern_fix_fabric}")
         modRuntimeOnly("curse.maven:ferritecore-${ferritecore_fabric_id}:${ferritecore_fabric}")
         modRuntimeOnly("curse.maven:mousetweaks-${mouse_tweaks_id}:${mouse_tweaks_fabric}")
@@ -120,7 +119,6 @@ dependencies {
     } else if(loomPlatform == 'neoforge'){
         neoForge "net.neoforged:neoforge:${neo_version}"
 
-        runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
         runtimeOnly("curse.maven:modernfix-${modern_fix_id}:${modern_fix_forge}")
         runtimeOnly("curse.maven:ferritecore-${ferritecore_forge_id}:${ferritecore_forge}")
 
@@ -144,7 +142,7 @@ remapJar {
 
     inputFile = shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = null
+    archiveClassifier = "remap"
 }
 
 jar {

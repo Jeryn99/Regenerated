@@ -20,6 +20,6 @@ public class ModJukeboxSongsProvider {
     }
 
     public static void bootstrap(BootstrapContext<JukeboxSong> context) {
-        register(context, ModResources.TEMPLATE_JUKEBOX_SONG, ModSoundEvents.TEMPLATE_SOUND_EVENT, 156, 11);
+        register(context, ModResources.TEMPLATE_JUKEBOX_SONG, ModSoundEvents.REGENERATION_RANDOM, 156, 11);
     }
 }

@@ -1,6 +1,6 @@
 package mc.jeryn.regenerated.registry.neoforge;
 
-import mc.jeryn.regenerated.neoforge.regeneratedNeoForge;
+import mc.jeryn.regenerated.neoforge.RegeneratedNeoForge;
 import mc.jeryn.regenerated.registry.DeferredRegistry;
 import mc.jeryn.regenerated.registry.RegistrySupplier;
 import mc.jeryn.regenerated.registry.RegistrySupplierHolder;
@@ -34,7 +34,7 @@ public class DeferredRegistryImpl {
 
         @Override
         public void register() {
-            this.register.register(regeneratedNeoForge.modEventBus);
+            this.register.register(RegeneratedNeoForge.modEventBus);
         }
 
 

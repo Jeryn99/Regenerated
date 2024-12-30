@@ -20,6 +20,9 @@
     ],
     "client": [
       "mc.jeryn.regenerated.fabric.RegeneratedFabricClient"
+    ],
+    "cardinal-components": [
+      "mc.jeryn.regenerated.data_attachment.RegeneratedPlayerComponents"
     ]
   },
   "mixins": [
@@ -29,5 +32,10 @@
     "fabricloader": ">=${fabric_loader_version}",
     "fabric": ">=${fabric_api_version}",
     "minecraft": ">=${minecraft_version}"
+  },
+  "custom": {
+    "cardinal-components": [
+      "regenerated:regenerated_data"
+    ]
   }
 }

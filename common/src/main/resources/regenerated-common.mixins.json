@@ -4,6 +4,7 @@
   "package": "mc.jeryn.regenerated.mixin",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
+    "LivingEntityMixin"
   ],
   "client": [
     "PlayerInfoMixin"

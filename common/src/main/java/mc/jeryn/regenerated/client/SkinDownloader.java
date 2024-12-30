@@ -1,20 +1,19 @@
 package mc.jeryn.regenerated.client;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import mc.jeryn.regenerated.Regenerated;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import javax.imageio.ImageIO;
 
 public class SkinDownloader {
     private static final String API_URL = "https://api.jeryn.dev/mc/skins/random";
@@ -74,7 +73,7 @@ public class SkinDownloader {
             Path skinPath = skinFile.toPath();
 
             Files.copy(skinUrl.openStream(), skinPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Downloaded and saved skin: " + skin.getName());
+            Regenerated.LOGGER.info("Downloaded and saved skin: {}", skin.getName());
         }
     }
 
@@ -103,7 +102,7 @@ public class SkinDownloader {
         return new String(apiUrl.openStream().readAllBytes());
     }
 
-    private class SkinDownload {
+    private static class SkinDownload {
         private String name;
         private String link;
         private String model;

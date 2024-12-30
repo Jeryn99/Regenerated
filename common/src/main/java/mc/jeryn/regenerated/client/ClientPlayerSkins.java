@@ -3,11 +3,11 @@ package mc.jeryn.regenerated.client;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.platform.NativeImage;
 import mc.jeryn.regenerated.common.data.player.RegeneratedEntityData;
-import mc.jeryn.regenerated.common.data.skin.RegeneratedSkinEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.client.resources.SkinManager;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.io.FileUtils;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -15,24 +15,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.UUID;
 
 public class ClientPlayerSkins {
 
-    private static HashMap<UUID, PlayerSkin> SKINS = new HashMap<>();
+    private static final HashMap<UUID, PlayerSkin> SKINS = new HashMap<>();
 
-    public static void putSkin(UUID uuid, PlayerSkin playerSkin) {
+    public static void insertSkin(UUID uuid, PlayerSkin playerSkin) {
         SKINS.put(uuid, playerSkin);
     }
 
-    public static void removeSkin(UUID uuid) {
+    public static void deleteSkin(UUID uuid) {
+        PlayerSkin skin = SKINS.get(uuid);
+        Minecraft.getInstance().getTextureManager().release(skin.texture());
         SKINS.remove(uuid);
     }
 
     public static void removeAll() {
+        SKINS.forEach((uuid, playerSkin) -> {
+            Minecraft.getInstance().getTextureManager().release(playerSkin.texture());
+        });
         SKINS.clear();
     }
 
@@ -40,16 +44,18 @@ public class ClientPlayerSkins {
         return SKINS.containsKey(uuid);
     }
 
-    public static PlayerSkin getSkin(UUID uuid) {
+    public static PlayerSkin retrieveSkinForPlayer(UUID uuid) {
         return SKINS.get(uuid);
     }
 
-    public static PlayerSkin newPlayerSkin(ResourceLocation skinTexture, PlayerSkin.Model model) {
-        return new PlayerSkin(skinTexture, null, null, null, model, false);
+    public static PlayerSkin instantiateSkin(UUID playeruuid, ResourceLocation skinTexture, PlayerSkin.Model model) {
+        PlayerSkin mojangSkin = retrieveMojangSkin(playeruuid);
+        return new PlayerSkin(skinTexture, null, mojangSkin.capeTexture(), mojangSkin.elytraTexture(), model, false);
     }
 
-    public static PlayerSkin newPlayerSkin(byte[] skinTexture, PlayerSkin.Model model) {
-        return new PlayerSkin(loadImage(genSkinNative(skinTexture)), null, null, null, model, false);
+    public static PlayerSkin instantiateSkin(UUID playeruuid, byte[] skinTexture, PlayerSkin.Model model) {
+        PlayerSkin mojangSkin = retrieveMojangSkin(playeruuid);
+        return new PlayerSkin(loadImage(genSkinNative(skinTexture)), null, mojangSkin.capeTexture(), mojangSkin.elytraTexture(), model, false);
     }
 
     public static ResourceLocation loadImage(NativeImage nativeImage) {
@@ -71,20 +77,19 @@ public class ClientPlayerSkins {
                 .flatMap(RegeneratedEntityData::get)
                 .ifPresent(regeneratedEntityData -> {
                     if (regeneratedEntityData.shouldRenderCustomSkin()) {
-                        regeneratedEntityData.setSkinData(new RegeneratedSkinEntry());
                         regeneratedEntityData.getSkinData().ifPresent(skinData -> {
                             if (hasSkin(profile.getId())) {
-                                cir.setReturnValue(getSkin(profile.getId()));
+                                cir.setReturnValue(retrieveSkinForPlayer(profile.getId()));
                             } else {
                                 // Update to load the image from the specified path
                                 String skinPath = "C:\\Users\\Craig\\IdeaProjects\\Regenerated\\fabric\\run\\regenerated\\skins\\slim\\server\\xr2904c.png";
                                 System.out.println("Loading skin from: " + skinPath);
-                                putSkin(profile.getId(), newPlayerSkin(fileToBytes(new File(skinPath)), skinData.isAlex() ? PlayerSkin.Model.SLIM : PlayerSkin.Model.WIDE));
-                                cir.setReturnValue(getSkin(profile.getId()));
+                                insertSkin(profile.getId(), instantiateSkin(profile.getId(), fileToBytes(new File(skinPath)), skinData.isAlex() ? PlayerSkin.Model.SLIM : PlayerSkin.Model.WIDE));
+                                cir.setReturnValue(retrieveSkinForPlayer(profile.getId()));
                             }
                         });
                     } else {
-                        removeSkin(profile.getId());
+                        deleteSkin(profile.getId());
                     }
                 });
     }
@@ -97,6 +102,12 @@ public class ClientPlayerSkins {
             e.printStackTrace();
             return new byte[0];
         }
+    }
+
+    public static PlayerSkin retrieveMojangSkin(UUID uuid){
+        SkinManager skinManager = Minecraft.getInstance().getSkinManager();
+        GameProfile gameProfile = new GameProfile(uuid, uuid.toString());
+        return skinManager.getInsecureSkin(gameProfile);
     }
 
 

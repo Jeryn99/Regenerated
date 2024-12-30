@@ -1,7 +1,6 @@
 package mc.jeryn.regenerated.datagen;
 
 import mc.jeryn.regenerated.Regenerated;
-import mc.jeryn.regenerated.common.data.player.Regen;
 import mc.jeryn.regenerated.common.sound.ModSoundEvents;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;

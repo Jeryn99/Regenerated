@@ -19,7 +19,7 @@ public class RegeneratedSkinEntry implements Serializable {
         return isAlex;
     }
 
-    public byte[] getSkinData() {
+    public byte[] getSkinByteArray() {
         return skinData;
     }
 
